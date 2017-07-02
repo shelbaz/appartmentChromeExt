@@ -25,8 +25,18 @@ app.get('/scrape', function(req, res){
 
             // Finally, we'll define the variables we're going to capture
 
-            var title, price, housingType, mapLattitude, mapLongitude, listingBody, phoneNumber;
+			var title, price, housingType, mapLattitude, mapLongitude, listingBody, phoneNumber;
             var json = { title : "", price : "", housingType : "", mapLongitude : "", mapLattitude : "", listingBody : "", phoneNumber: ""};
+        
+            $('.header').filter(function(){
+        		var data = $(this);
+        		title = data.children().first().text();            
+        		price = data.children().last().children().text();
+
+        		json.title = title;
+        		json.price = price;
+    		})
+
         }
     })
 })
@@ -36,6 +46,12 @@ app.listen('8081')
 console.log('Magic happens on port 8081');
 
 exports = module.exports = app;
+
+fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
+
+    console.log('File successfully written! - Check your project directory for the output.json file');
+
+})
 
 function craigslistScrapper(){
 
