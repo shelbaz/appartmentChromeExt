@@ -4,6 +4,11 @@
   "description"  : "Scrape le web.",
   "main"         : "server.js",
   "author"       : "Scotch",
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/shelbaz/appartmentChromeExt"
+  },
+  "license": "UNLICENSED",
   "dependencies" : {
     "express"    : "latest",
     "request"    : "latest",
