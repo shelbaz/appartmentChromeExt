@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+
+  "name": "Slater (save for later)",
+  "description": "This extension will allow users to review things they have saved while shopping",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "rsz_img_1996.png",
+    "default_popup": "popup.html",
+    "default_title":"Save me for later :)"
+  },
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/"
+  ]
+}
