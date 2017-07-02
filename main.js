@@ -13,7 +13,10 @@ This is very primitive and will need to be changed because as of now,
 Our extension will be sitting in the background on everypage and 
 will only take action when our button is pressed. 
 */
+function createScrapperObj(optionSite){
 
+
+}
 function choseScrapper(currentSite,arrayOfSitesWeKnowOf){
 
 	for (var i = 0; i < arrayOfSitesWeKnowOf.length; i++) {
@@ -21,8 +24,10 @@ function choseScrapper(currentSite,arrayOfSitesWeKnowOf){
 		// we found the site, so set the global variable.
 		// don't forget to trim the//'s because its regex'
 		
-		globalSite=arrayOfSitesWeKnowOf[i];
+		globalSite=arrayOfSitesWeKnowOf[i].toString();
 		console.log("choosing the: "+globalSite + " scrapper.");
+		var globalSite = globalSite.substring(1, globalSite.length-1);
+		console.log(globalSite)
 		break;
 
 
@@ -33,4 +38,5 @@ function choseScrapper(currentSite,arrayOfSitesWeKnowOf){
 			
 	}
 }
-choseScrapper(href,siteArray);
+choseScrapper(href,siteArray,createScrapperObj);
+
