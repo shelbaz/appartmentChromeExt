@@ -4,6 +4,7 @@
 // var4=require( 'datatables.net-buttons/js/buttons.print.js' )(); // Print view button
 //var fs = require('fs');
 var dataSet= [];
+var latAndLong = [];
 
 var myList = [
   {
@@ -20,13 +21,15 @@ var myList = [
   "price": "$200000",
   "housingType": "6br",
   "mapAddress": "692 Avenue ok",
-  "mapLongitude": "-73.yes",
-  "mapLatitude": "45.",
+  "mapLongitude": "-73.59",
+  "mapLatitude": "45.600",
   "googleMaps": "NA.9%32+Avenue+Outremont+montreal+QC+CA"
 }
 ];
 
+
 function jsonToValuesOnly(list){
+  
   for (var i = 0; i < list.length; i++) {
     var flushToDS=[];
     flushToDS[0]=list[i].title;
@@ -47,12 +50,14 @@ function jsonToValuesOnly(list){
     // console.log("i = " + i);
     dataSet[i] = flushToDS;
     }
-  
 
-}
+
+} //EOF
+
+
 function readyTable(data){
   jsonToValuesOnly(myList);
-  console.log("done with setup, printing to page");
+  //console.log("done with setup, printing to page");
 
   $(document).ready(function() {
     $('#example').DataTable( {
@@ -71,7 +76,22 @@ function readyTable(data){
 
 }
 
+function extractLatLong(list){
+  //console.log("howdy");
+  
+  for (var i = 0; i < list.length; i++) {
+    var temp= [];
+    temp[0]=list[i].mapLatitude;
+    //console.log(list[i].mapLatitude);
+    temp[1]=list[i].mapLongitude;
+    latAndLong[i]=temp;
+  }
+  //console.log(latAndLong);
+}
+
+
 readyTable();
+//extractLatLong(myList);
 
 // jsonToValuesOnly(myList);
 // console.log("..........do i have valid ds?");

@@ -19,6 +19,12 @@
         overflow: hidden;
         max-width: 400px;
       }
+      #map {
+        width: 300px;
+        height: 300px;
+        background-color: grey;
+      } 
+
     </style>
 
     <!--
@@ -34,13 +40,54 @@
      <script type="text/javascript" src="node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
      
     <script src="popup.js"></script>
+     <script>
+      function initMap() {
+        var markers = [];
+        
+        for (var i = 0; i < myList.length; i++) {
+          var newmark = {lat: parseFloat(myList[i].mapLatitude), lng: parseFloat(myList[i].mapLongitude)}
+          //console.log(newmark);
+          markers[i]=newmark;
 
+          
+        }
+        //console.log(markers);
+         var mtlsome = {lat: 45.520, lng: -73.611};
+        // var mtlsome1 = {lat: 45.490, lng: -73.611};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 9,
+          center: mtlsome
+        });
+
+        for (var i = 0; i < markers.length; i++) {
+          var mark = new google.maps.Marker ({
+            position: markers[i],
+            map:map
+          });
+          //console.log("loop " + i);
+
+          
+        }
+        // var marker = new google.maps.Marker({
+        //   position: mtlsome,
+        //   map: map
+        // });
+        // var marker1 = new google.maps.Marker({
+        //   position: mtlsome1,
+        //   map: map
+        // });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACq8xmz8WKqdbZcw2Pnavjok9U9GLuCAg&callback=initMap">
+    </script>
     <!--<script src="main.js"></script>>-->
 
   </head>
  <body>
   
 <table id="example" class="display" width="100%"></table>
+<div id="map"></div>
 </body>
 </html>
 
