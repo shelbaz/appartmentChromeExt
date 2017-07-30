@@ -4,7 +4,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var app     = express();
 
-app.get('/scrape', function(req, res){
+function scrapePage(){
 
 // The URL we will scrape from - in our example Anchorman 2.
 
@@ -26,7 +26,7 @@ app.get('/scrape', function(req, res){
             // Finally, we'll define the variables we're going to capture
 
 			var title, price, housingType, mapLattitude, mapLongitude, listingBody, phoneNumber, area;
-            var json = { title : "", price : "", area : "",  housingType : "", mapLongitude : "", mapLattitude : "", listingBody : "", phoneNumber: ""};
+            var json = { title : "", price : "", area : "",  housingType : "", mapLongitude : "", mapLattitude : "", listingBody : "", phoneNumber: "", imageList: ""};
         
             $('.postingtitletext').filter(function(){
         		var data = $(this);
@@ -42,21 +42,36 @@ app.get('/scrape', function(req, res){
         		json.area = area;
 
     		})
-            
+
+            $('.userbody').filter(function(){
+                var data = $(this);
+                imageList = data.children().children().next().next().data();            
+                listingBody = data.children().next().next().text();
+
+                
+
+                json.imageList = imageList;
+                json.listingBody = listingBody;
+
+
+            })
+
+            $('.mapbox').filter(function(){
+                var data = $(this);
+                mapLattitude = data.children().attr('data-latitude');   
+                mapLongitude = data.children().attr('data-longitude');        
+                
+
+                json.mapLattitude = mapLattitude;
+                json.mapLongitude = mapLongitude;
+            })
+
+
             console.log(JSON.stringify(json));
-
-
-        }
-    })
-})
-
-
-
-app.listen('8888');
+            
 
 console.log('Magic happens on port 8081');
 
-exports = module.exports = app;
 
 fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
 
@@ -64,10 +79,10 @@ fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
 
 })
 
-function craigslistScrapper(){
 
-	this.say = function(){
-		console.log("Worked, created a craigslist object.")
-	}
-
+        }
+    })
 }
+
+scrapePage();
+
